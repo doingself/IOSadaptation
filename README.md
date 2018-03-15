@@ -1,10 +1,14 @@
 
 官方提供的 [IOS 版本市场占有率](https://developer.apple.com/support/app-store/)
 
->IOS 10 28%
->IOS 11 65%
+> IOS 10 28%  
+> IOS 11 65%
 
 第三方_DavidSmith提供的 [IOS 版本市场占有率](https://david-smith.org/iosversionstats/)
+
+# IOS11 Demo
+
+基于 IOS11 适配 iPhone X
 
 # IOS 新特性
 
@@ -82,9 +86,18 @@ IOS7最大的变化莫过于UI设计
 # iPhone 机型适配
 
 ## iPhone 4 se 6 7 8 [plus]
+
 ## iphone x
 
+
+
 # 屏幕旋转
+
+
+# Requirements
++ Swift 4
++ iOS 10+
++ Xcode 9+
 
 ---
 

@@ -12,6 +12,10 @@
 		190404102058FE8A00EE5BDE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1904040E2058FE8A00EE5BDE /* Main.storyboard */; };
 		190404122058FE8B00EE5BDE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 190404112058FE8B00EE5BDE /* Assets.xcassets */; };
 		190404152058FE8B00EE5BDE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 190404132058FE8B00EE5BDE /* LaunchScreen.storyboard */; };
+		1904041D2059013200EE5BDE /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1904041C2059013200EE5BDE /* HomeViewController.swift */; };
+		1904041F2059017C00EE5BDE /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1904041E2059017C00EE5BDE /* FindViewController.swift */; };
+		190404212059018700EE5BDE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190404202059018700EE5BDE /* MeViewController.swift */; };
+		1904042320590A8900EE5BDE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1904042220590A8900EE5BDE /* TabBarViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		190404112058FE8B00EE5BDE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		190404142058FE8B00EE5BDE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		190404162058FE8B00EE5BDE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1904041C2059013200EE5BDE /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		1904041E2059017C00EE5BDE /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		190404202059018700EE5BDE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
+		1904042220590A8900EE5BDE /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				1904040A2058FE8A00EE5BDE /* AppDelegate.swift */,
+				1904042220590A8900EE5BDE /* TabBarViewController.swift */,
+				1904041C2059013200EE5BDE /* HomeViewController.swift */,
+				1904041E2059017C00EE5BDE /* FindViewController.swift */,
+				190404202059018700EE5BDE /* MeViewController.swift */,
 				1904040C2058FE8A00EE5BDE /* ViewController.swift */,
 				1904040E2058FE8A00EE5BDE /* Main.storyboard */,
 				190404112058FE8B00EE5BDE /* Assets.xcassets */,
@@ -136,8 +148,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				190404212059018700EE5BDE /* MeViewController.swift in Sources */,
 				1904040D2058FE8A00EE5BDE /* ViewController.swift in Sources */,
 				1904040B2058FE8A00EE5BDE /* AppDelegate.swift in Sources */,
+				1904041D2059013200EE5BDE /* HomeViewController.swift in Sources */,
+				1904042320590A8900EE5BDE /* TabBarViewController.swift in Sources */,
+				1904041F2059017C00EE5BDE /* FindViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +291,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQP5327YF6;
 				INFOPLIST_FILE = IOS11Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.syc.IOS11Demo;
@@ -289,6 +306,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQP5327YF6;
 				INFOPLIST_FILE = IOS11Demo/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.syc.IOS11Demo;
