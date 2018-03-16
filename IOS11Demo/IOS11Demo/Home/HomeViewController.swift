@@ -93,6 +93,12 @@ extension HomeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let v = HomeChildLandscapeViewController()
+        if indexPath.row % 2 == 0{
+            self.navigationController?.pushViewController(v, animated: true)
+        }else{
+            self.present(v, animated: true, completion: nil)
+        }
     }
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let normalAction = UIContextualAction(style: UIContextualAction.Style.normal, title: "normal") { (act: UIContextualAction, v: UIView, handler) in

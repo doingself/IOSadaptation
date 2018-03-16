@@ -8,7 +8,14 @@
 
 # IOS11 Demo
 
-基于 IOS11 适配 iPhone X
++ 机型适配(使用了安全区域什么也不用做了)
++ 大标题
++ 表格单元格 左右滑动
++ 强制旋转屏幕
+	+ 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
+	+ 控制中心不锁定屏幕方向
+
++ 配置 权限(info.plist)
 
 # IOS 新特性
 
@@ -93,6 +100,76 @@ IOS7最大的变化莫过于UI设计
 
 # 屏幕旋转
 
+## 方向
+
+### 设备方向 UIDeviceOrientation
+
+UIDeviceOrientation是硬件设备(iPhone、iPad等)本身的当前旋转方向, 以home键的位置作为参照
+设备方向只能取值, 不能设置
+
+```
+// 添加通知
+NotificationCenter.default.addObserver(self, selector: #selector(self.deviceChange()), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+UIDevice.current.beginGeneratingDeviceOrientationNotifications()
+
+func deviceChange(){
+	// 获取屏幕方向
+	let tation: UIDeviceOrientation = UIDevice.current.orientation
+    print(tation)
+}
+```
+
+### 页面方向 UIInterfaceOrientation
+
+程序界面的当前旋转方向, 可以设置
+
+```
+UIInterfaceOrientationLandscapeLeft = UIDeviceOrientationLandscapeRight
+UIInterfaceOrientationLandscapeRight = UIDeviceOrientationLandscapeLeft
+```
+
+### 页面方向：UIInterfaceOrientationMask
+
+UIInterfaceOrientationMask是iOS6之后增加的一种枚举
+
+## 屏幕旋转
+
+### 方式一
+
+设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
+控制中心不锁定屏幕方向
+
+```
+/// 是否支持屏幕旋转
+override var shouldAutorotate: Bool{
+    get{
+        print("是否支持屏幕旋转")
+        return true
+    }
+}
+/// 支持的方向
+override var supportedInterfaceOrientations: UIInterfaceOrientationMask{
+    get {
+        print("屏幕旋转支持的方向")
+        return UIInterfaceOrientationMask.allButUpsideDown
+    }
+}
+/// 进入界面默认的方向(*******仅present 有效********)
+override var preferredInterfaceOrientationForPresentation: UIInterfaceOrientation{
+    get{
+        print("进入界面默认的方向")
+        return UIInterfaceOrientation.landscapeRight
+    }
+}
+/// 监听屏幕旋转
+override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    super.viewWillTransition(to: size, with: coordinator)
+    print("屏幕旋转, 更新 UI")
+}
+
+// 强制屏幕旋转, 与设备方向无关
+UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
+```
 
 # Requirements
 + Swift 4
@@ -108,3 +185,4 @@ IOS7最大的变化莫过于UI设计
 + https://www.jianshu.com/p/dd3475fb3960
 + https://www.jianshu.com/p/6780c4d58da3
 + https://www.jianshu.com/p/d4a17c32abdf
++ http://blog.csdn.net/DreamcoffeeZS/article/details/79037207

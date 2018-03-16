@@ -16,6 +16,7 @@
 		1904041F2059017C00EE5BDE /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1904041E2059017C00EE5BDE /* FindViewController.swift */; };
 		190404212059018700EE5BDE /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 190404202059018700EE5BDE /* MeViewController.swift */; };
 		1904042320590A8900EE5BDE /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1904042220590A8900EE5BDE /* TabBarViewController.swift */; };
+		19113F35205B6DC000C0520B /* HomeChildLandscapeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19113F34205B6DC000C0520B /* HomeChildLandscapeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		1904041E2059017C00EE5BDE /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
 		190404202059018700EE5BDE /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 		1904042220590A8900EE5BDE /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		19113F34205B6DC000C0520B /* HomeChildLandscapeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeChildLandscapeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,9 +66,9 @@
 			children = (
 				1904040A2058FE8A00EE5BDE /* AppDelegate.swift */,
 				1904042220590A8900EE5BDE /* TabBarViewController.swift */,
-				1904041C2059013200EE5BDE /* HomeViewController.swift */,
-				1904041E2059017C00EE5BDE /* FindViewController.swift */,
-				190404202059018700EE5BDE /* MeViewController.swift */,
+				19113F2F205B6CFD00C0520B /* Home */,
+				19113F30205B6D2A00C0520B /* Find */,
+				19113F31205B6D3200C0520B /* Me */,
 				1904040C2058FE8A00EE5BDE /* ViewController.swift */,
 				1904040E2058FE8A00EE5BDE /* Main.storyboard */,
 				190404112058FE8B00EE5BDE /* Assets.xcassets */,
@@ -74,6 +76,31 @@
 				190404162058FE8B00EE5BDE /* Info.plist */,
 			);
 			path = IOS11Demo;
+			sourceTree = "<group>";
+		};
+		19113F2F205B6CFD00C0520B /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				1904041C2059013200EE5BDE /* HomeViewController.swift */,
+				19113F34205B6DC000C0520B /* HomeChildLandscapeViewController.swift */,
+			);
+			path = Home;
+			sourceTree = "<group>";
+		};
+		19113F30205B6D2A00C0520B /* Find */ = {
+			isa = PBXGroup;
+			children = (
+				1904041E2059017C00EE5BDE /* FindViewController.swift */,
+			);
+			path = Find;
+			sourceTree = "<group>";
+		};
+		19113F31205B6D3200C0520B /* Me */ = {
+			isa = PBXGroup;
+			children = (
+				190404202059018700EE5BDE /* MeViewController.swift */,
+			);
+			path = Me;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -148,6 +175,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19113F35205B6DC000C0520B /* HomeChildLandscapeViewController.swift in Sources */,
 				190404212059018700EE5BDE /* MeViewController.swift in Sources */,
 				1904040D2058FE8A00EE5BDE /* ViewController.swift in Sources */,
 				1904040B2058FE8A00EE5BDE /* AppDelegate.swift in Sources */,
