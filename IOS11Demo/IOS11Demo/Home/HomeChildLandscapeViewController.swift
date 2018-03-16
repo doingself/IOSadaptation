@@ -84,10 +84,15 @@ class HomeChildLandscapeViewController: UIViewController {
             return UIInterfaceOrientation.landscapeRight
         }
     }
-    /// 监听屏幕旋转
+    /// window rotates or is resized 触发(监听屏幕旋转)
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
-        print("屏幕旋转, 更新 UI")
+        print("屏幕旋转 viewWillTransition, 更新 UI")
+    }
+    /// 自定义组件更新 UI
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        print("屏幕旋转 viewWillLayoutSubviews, 更新 UI")
     }
     
     /// 设置横屏

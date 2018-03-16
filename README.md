@@ -136,8 +136,36 @@ UIInterfaceOrientationMask是iOS6之后增加的一种枚举
 
 ### 方式一
 
+控制中心不锁定屏幕方向
+
+1 == 2
+
+1. 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
+2. App的全局屏幕旋转设置, 屏幕旋转时触发
+```
+var allowLandscape = false
+extension AppDelegate{    
+    func application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        print("\(#function)")
+        if allowLandscape {
+            // 支持横屏和竖屏
+            return UIInterfaceOrientationMask.allButUpsideDown
+        }else{
+            // 仅竖屏
+            return UIInterfaceOrientationMask.portrait
+        }
+    }
+}
+```
+
+### 方式二
+
+整个项目可屏幕旋转, 对单个页面进行强制旋转
+
 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
 控制中心不锁定屏幕方向
+依赖于 `application(_ application: UIApplication, supportedInterfaceOrientationsFor window: UIWindow?)` 该方法可以不用实现, 不实现则整个 app 都可以屏幕旋转
+
 
 ```
 /// 是否支持屏幕旋转
@@ -171,10 +199,18 @@ override func viewWillTransition(to size: CGSize, with coordinator: UIViewContro
 UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey: "orientation")
 ```
 
+### 方式三
+
+整个 App 竖屏, 特殊页面横屏, 可以结合方式一和方式二, 在特殊页面修改自定义变量 `allowLandscape`
+
 # Requirements
 + Swift 4
 + iOS 10+
 + Xcode 9+
+
+# FIXME
+
++ `未确认` 用户在控制中心锁定了屏幕方向 swift 无法强制横屏, 只能通过 Objective-C 处理
 
 ---
 
