@@ -8,14 +8,12 @@
 
 # IOS11 Demo
 
-+ 机型适配(使用了安全区域什么也不用做了)
++ 机型适配(使用了安全区域什么也不用做了, 没有适配横屏)
 + 大标题
 + 表格单元格 左右滑动
 + 强制旋转屏幕
 	+ 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
 	+ 控制中心不锁定屏幕方向
-
-+ 配置 权限(info.plist)
 
 # IOS 新特性
 
@@ -138,7 +136,7 @@ UIInterfaceOrientationMask是iOS6之后增加的一种枚举
 
 控制中心不锁定屏幕方向
 
-1 == 2
+如下 1 和 2 效果一样
 
 1. 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
 2. App的全局屏幕旋转设置, 屏幕旋转时触发
