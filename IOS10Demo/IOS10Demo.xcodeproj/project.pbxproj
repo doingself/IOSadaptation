@@ -12,6 +12,9 @@
 		19716B072060CF2A00C20B5C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19716B052060CF2A00C20B5C /* Main.storyboard */; };
 		19716B092060CF2A00C20B5C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 19716B082060CF2A00C20B5C /* Assets.xcassets */; };
 		19716B0C2060CF2A00C20B5C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19716B0A2060CF2A00C20B5C /* LaunchScreen.storyboard */; };
+		19716B142060DDFF00C20B5C /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19716B132060DDFF00C20B5C /* HomeViewController.swift */; };
+		19716B162060DE0600C20B5C /* FindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19716B152060DE0600C20B5C /* FindViewController.swift */; };
+		19716B182060DE0C00C20B5C /* MeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 19716B172060DE0C00C20B5C /* MeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		19716B082060CF2A00C20B5C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		19716B0B2060CF2A00C20B5C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		19716B0D2060CF2A00C20B5C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		19716B132060DDFF00C20B5C /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		19716B152060DE0600C20B5C /* FindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindViewController.swift; sourceTree = "<group>"; };
+		19716B172060DE0C00C20B5C /* MeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +61,9 @@
 			isa = PBXGroup;
 			children = (
 				19716B012060CF2A00C20B5C /* AppDelegate.swift */,
+				19716B132060DDFF00C20B5C /* HomeViewController.swift */,
+				19716B152060DE0600C20B5C /* FindViewController.swift */,
+				19716B172060DE0C00C20B5C /* MeViewController.swift */,
 				19716B032060CF2A00C20B5C /* ViewController.swift */,
 				19716B052060CF2A00C20B5C /* Main.storyboard */,
 				19716B082060CF2A00C20B5C /* Assets.xcassets */,
@@ -136,8 +145,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19716B182060DE0C00C20B5C /* MeViewController.swift in Sources */,
 				19716B042060CF2A00C20B5C /* ViewController.swift in Sources */,
 				19716B022060CF2A00C20B5C /* AppDelegate.swift in Sources */,
+				19716B142060DDFF00C20B5C /* HomeViewController.swift in Sources */,
+				19716B162060DE0600C20B5C /* FindViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +223,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -262,7 +274,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -275,7 +287,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQP5327YF6;
 				INFOPLIST_FILE = IOS10Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.syc.IOS10Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -289,7 +303,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = XQP5327YF6;
 				INFOPLIST_FILE = IOS10Demo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = cn.syc.IOS10Demo;
 				PRODUCT_NAME = "$(TARGET_NAME)";

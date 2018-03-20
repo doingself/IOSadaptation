@@ -73,7 +73,7 @@ IOS7最大的变化莫过于UI设计
 1. SiriKit 所有第三方应用都可以用Siri，支持音频、视频、消息发送接收、搜索照片、预订行程、管理锻炼等
 2. 自动管理证书
 3. 所用到的隐私权限 强制必须在Info.plist中配置
-4. 使用独立的UserNotifications.framework来集中管理和使用iOS系统中通知的功能。
+4. 新增加了一个 UserNotifications.framework，统一了 Remote Notification（远程通知）和 Local Notification（本地通知）
 5. 引入Speech.framework用来支持语音识别,在app中可以识别语音并转成文本,语音来源可以是实时的也可以是录音。
 6. 推出了一个全新的API UIViewPropertyAnimator，可供我们处理动画操作
 7. UIApplication对象中openUrl被废弃
@@ -231,3 +231,5 @@ UIDevice.current.setValue(UIInterfaceOrientation.landscapeLeft.rawValue, forKey:
 + https://www.jianshu.com/p/6780c4d58da3
 + https://www.jianshu.com/p/d4a17c32abdf
 + http://blog.csdn.net/DreamcoffeeZS/article/details/79037207
++ https://www.cnblogs.com/clumsy1006/p/5897807.html
++ http://www.hangge.com/blog/cache/detail_1845.html

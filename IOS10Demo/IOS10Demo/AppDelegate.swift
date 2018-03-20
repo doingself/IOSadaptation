@@ -16,6 +16,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let home = HomeViewController()
+        let navHome = UINavigationController(rootViewController: home)
+        home.tabBarItem = UITabBarItem(tabBarSystemItem: UITabBarSystemItem.bookmarks, tag: 1)
+        
+        let find = FindViewController()
+        let navFind = UINavigationController(rootViewController: find)
+        navFind.tabBarItem = UITabBarItem(title: "find", image: nil, selectedImage: nil)
+        
+        let me = MeViewController()
+        let navMe = UINavigationController(rootViewController: me)
+        navMe.tabBarItem = UITabBarItem(title: "me", image: nil, selectedImage: nil)
+        
+        let tab = UITabBarController()
+        tab.viewControllers = [navHome, navFind, navMe]
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        window?.rootViewController = tab
+        window?.makeKeyAndVisible()
+        
         return true
     }
 
