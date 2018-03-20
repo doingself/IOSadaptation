@@ -6,7 +6,11 @@
 
 第三方_DavidSmith提供的 [IOS 版本市场占有率](https://david-smith.org/iosversionstats/)
 
-# IOS11 Demo
+# IOS 新特性实践
+
+## IOS11 Demo
+
+该 Demo 基于 IOS11 + swift4 + Xcode9 完成了以下功能:
 
 + 机型适配(使用了安全区域什么也不用做了, 没有适配横屏)
 + 大标题
@@ -14,6 +18,13 @@
 + 强制旋转屏幕
 	+ 设置 Target --> General --> Deployment Info --> Device Orientation 勾选 landscape 和 protrait 3个
 	+ 控制中心不锁定屏幕方向
+
+## IOS10 Demo
+
+该 Demo 基于 IOS10 + swift4 + Xcode9 完成了以下功能:
+
++ 权限配置
++ UserNotifications 简单使用
 
 # IOS 新特性
 
@@ -90,11 +101,11 @@ IOS7最大的变化莫过于UI设计
 
 # iPhone 机型适配
 
-## iPhone 4 se 6 7 8 [plus]
+## iPhone 4 se 6 7 8
+
+## iPhone 6 7 8 plus
 
 ## iphone x
-
-
 
 # 屏幕旋转
 
