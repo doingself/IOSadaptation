@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="landscape">
+    <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -19,8 +20,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="399" height="208.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAe-h1-hKt">
-                        <rect key="frame" x="309" y="5" width="85" height="20.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NAe-h1-hKt">
+                        <rect key="frame" x="163" y="168.5" width="231" height="30"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="100" constant="30" id="0fF-xo-HRM"/>
                             <constraint firstAttribute="width" priority="100" constant="85" id="8Cx-IT-JNU"/>
@@ -39,7 +40,7 @@
                             </mask>
                         </variation>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6s-vD-nlQ">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="f6s-vD-nlQ">
                         <rect key="frame" x="74" y="54" width="58" height="57"/>
                         <constraints>
                             <constraint firstAttribute="height" priority="100" constant="30" id="S8v-Lo-FnE"/>
@@ -55,6 +56,7 @@
                     <constraint firstAttribute="trailing" secondItem="f6s-vD-nlQ" secondAttribute="trailing" constant="10" id="Fm3-kq-HUB"/>
                     <constraint firstAttribute="trailing" secondItem="NAe-h1-hKt" secondAttribute="trailing" constant="5" id="LMm-Hh-Tye"/>
                     <constraint firstAttribute="bottom" secondItem="NAe-h1-hKt" secondAttribute="bottom" constant="10" id="NSm-eu-Wxf"/>
+                    <constraint firstItem="f6s-vD-nlQ" firstAttribute="width" secondItem="H2p-sc-9uM" secondAttribute="width" multiplier="1:3" id="PP9-kw-r0e"/>
                     <constraint firstItem="NAe-h1-hKt" firstAttribute="leading" secondItem="f6s-vD-nlQ" secondAttribute="trailing" constant="20" id="gJ1-CA-MAh"/>
                     <constraint firstItem="NAe-h1-hKt" firstAttribute="top" secondItem="f6s-vD-nlQ" secondAttribute="bottom" constant="20" id="oip-a7-GOs"/>
                     <constraint firstItem="f6s-vD-nlQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="qTo-pa-I1W"/>
@@ -64,6 +66,7 @@
                 <variation key="default">
                     <mask key="constraints">
                         <exclude reference="Fm3-kq-HUB"/>
+                        <exclude reference="PP9-kw-r0e"/>
                         <exclude reference="x5s-A5-hi0"/>
                         <exclude reference="44C-zN-fYW"/>
                         <exclude reference="BaJ-KH-Gkx"/>
@@ -75,6 +78,7 @@
                 </variation>
                 <variation key="heightClass=compact-widthClass=compact">
                     <mask key="constraints">
+                        <include reference="PP9-kw-r0e"/>
                         <include reference="x5s-A5-hi0"/>
                         <include reference="BaJ-KH-Gkx"/>
                         <include reference="LMm-Hh-Tye"/>

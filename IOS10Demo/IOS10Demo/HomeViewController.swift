@@ -52,6 +52,7 @@ class HomeViewController: UIViewController {
         print("\(#function) + \(self.view.frame.size) + \(size) + \(coordinator.transitionDuration)")
         UIView.animate(withDuration: coordinator.transitionDuration) {
             self.tabView.frame.size = size
+            self.tabView.reloadData()
         }
     }
 }

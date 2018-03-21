@@ -34,8 +34,8 @@ class HomeTableViewCell: UITableViewCell {
         super.layoutSubviews()
         print("\(#function)")
     }
-    func setData(str: String?){
-        lab1.text = str
-        lab2.text = str
+    func setData(str: String){
+        lab1.text = "1. " + str
+        lab2.text = "2. " + str
     }
 }
