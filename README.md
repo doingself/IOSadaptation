@@ -24,7 +24,10 @@
 该 Demo 基于 IOS10 + swift4 + Xcode9 完成了以下功能:
 
 + 权限配置
++ 屏幕旋转后,页面自适应
 + UserNotifications 简单使用
+    + 权限申请
+    + 添加本地通知
 
 # IOS 新特性
 
