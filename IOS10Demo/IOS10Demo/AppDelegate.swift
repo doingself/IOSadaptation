@@ -36,7 +36,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tab
         window?.makeKeyAndVisible()
         
+        // MARK: 远程通知, 向 APNs 请求 token
+        UIApplication.shared.registerForRemoteNotifications()
         return true
+    }
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // token
+        // Data ---> String
+        let token = deviceToken.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) -> String in
+            let buffer = UnsafeBufferPointer(start: bytes, count: deviceToken.count)
+            let res = buffer.map{ String(format: "%02hhx", $0)}.reduce("", { $0 + $1 })
+            return res
+        }
+        print("token = \(token)")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

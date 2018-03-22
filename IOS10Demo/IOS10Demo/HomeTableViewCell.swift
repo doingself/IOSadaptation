@@ -19,8 +19,8 @@ class HomeTableViewCell: UITableViewCell {
         lab1.numberOfLines = 0
         lab2.numberOfLines = 0
         
-        lab1.layer.borderWidth = 1
-        lab2.layer.borderWidth = 2
+//        lab1.layer.borderWidth = 1
+//        lab2.layer.borderWidth = 2
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -32,10 +32,10 @@ class HomeTableViewCell: UITableViewCell {
     /// 屏幕旋转后屏幕适配
     override func layoutSubviews() {
         super.layoutSubviews()
-        print("\(#function)")
+        //print("\(#function)")
     }
     func setData(str: String){
-        lab1.text = "1. " + str
-        lab2.text = "2. " + str
+        lab1.text = str
+        lab2.text = str + " ||| " + str + " ||| " + str
     }
 }

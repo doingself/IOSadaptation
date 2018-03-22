@@ -8,6 +8,7 @@
 
 import UIKit
 import UserNotifications
+import CoreLocation
 
 class HomeViewController: UIViewController {
 
@@ -18,7 +19,16 @@ class HomeViewController: UIViewController {
             "获取通知权限,并申请",
             "打印通知权限",
             "点击后,5秒显示通知",
-            "点击后,在固定时间显示通知"
+            "点击后,在固定时间显示通知",
+            "点击后,在固定位置(经纬度)显示通知",
+            "打印所有通知(远程+本地)",
+            "打印已经推送的通知",
+            "删除通知",
+            
+            "添加通知代理",
+            "点击后,3秒显示有交互的通知,基于代理",
+            "注册category,基于代理"
+            
         ]
         return arr
     }()
@@ -64,7 +74,7 @@ extension HomeViewController: UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HomeTableViewCell
-        cell.setData(str: datas[indexPath.row])
+        cell.setData(str: "\(indexPath.row). "+datas[indexPath.row])
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -78,20 +88,195 @@ extension HomeViewController: UITableViewDelegate{
         
         switch indexPath.row {
         case 0:
+            // 申请
             self.getNotificationSet()
         case 1:
+            // 打印通知权限
             self.printNotificationSet()
         case 2:
+            // 5秒后显示通知
             self.addLocalNotification()
+        case 3:
+            // 固定时间显示通知
+            self.addLocalNotificationAtTime()
+        case 4:
+            // 根据经纬度显示通知
+            self.addLocalNotificationAtLocation()
+        case 5:
+            // 打印所有通知
+            self.showAllNotification()
+        case 6:
+            // 打印已经推送的通知
+            self.showPushNotification()
+        case 7:
+            // 删除通知
+            self.removeNotification()
+        case 8:
+            // 代理
+            self.addDelegate()
+        case 9:
+            // 显示交互的通知(action)
+            self.addLocalNotificationAtAction()
+        case 11:
+            // 注册 category
+            registerNotificationCategory()
+            
         default:
             break
         }
     }
 }
 
-extension HomeViewController{
-    // MARK: UNUserNotification
+extension HomeViewController: UNUserNotificationCenterDelegate{
+    // MARK: UNUserNotification delegate 通知代理
     
+    // 默认情况下当应用处于前台时，收到的通知是不进行展示的。
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        
+        print("willPresent \(notification.request.content.body)")
+        //在应用内展示通知
+        completionHandler([UNNotificationPresentationOptions.alert, .sound])
+    }
+    
+    // 用户与通知进行交互时被调用
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        
+        // 通知的信息
+        print("didReceive ", response.notification.request.content.body)
+        print("didReceive ", response.notification.request.content.userInfo)
+        
+        let categoryIdentifier = response.notification.request.content.categoryIdentifier
+        if categoryIdentifier == "myCategoryIdentifier"{
+            let actionType = response.actionIdentifier
+            let msg: String
+            if actionType == ""{
+                msg = "输入了 === " + (response as! UNTextInputNotificationResponse).userText
+            }else{
+                msg = "点击了 === " + actionType
+            }
+            
+            print("didReceive ", categoryIdentifier)
+            print("didReceive ", actionType)
+            
+            if let vc = UIApplication.shared.keyWindow?.rootViewController{
+                let alert = UIAlertController(title: "action", message: msg, preferredStyle: UIAlertControllerStyle.alert)
+                let action = UIAlertAction(title: "ok", style: UIAlertActionStyle.cancel, handler: nil)
+                alert.addAction(action)
+                vc.present(alert, animated: true, completion: nil)
+            }
+        }
+        //完成了工作
+        completionHandler()
+    }
+}
+
+extension HomeViewController{
+    // MARK: UNUserNotification 自定义通知
+    
+    /// 注册 category
+    func registerNotificationCategory(){
+        
+        // 输入框 action
+        let inputAction = UNTextInputNotificationAction(identifier: "myinput", title: "文本框", options: UNNotificationActionOptions.foreground, textInputButtonTitle: "btn", textInputPlaceholder: "placeholder..")
+        
+        // 按钮 action
+        let btnAction = UNNotificationAction(identifier: "mybtn", title: "按钮", options: UNNotificationActionOptions.destructive)
+        
+        // category
+        let myCategory: UNNotificationCategory = UNNotificationCategory(identifier: "mydefine", actions: [inputAction, btnAction], intentIdentifiers: [], options: UNNotificationCategoryOptions.customDismissAction)
+        
+        // 添加到 center
+        UNUserNotificationCenter.current().setNotificationCategories([myCategory])
+    }
+    
+    /// 添加有交互的通知
+    func addLocalNotificationAtAction(){
+        // 内容
+        let content = UNMutableNotificationContent()
+        content.title = "这是标题"
+        content.subtitle = "3秒后显示交互通知 subtitle"
+        content.body = "3秒后显示交互通知 body"
+        content.badge = 4
+        content.userInfo = ["kkk":"vvv", "haha": 123]
+        content.categoryIdentifier = "myCategoryIdentifier"
+        
+        // 触发器, 3秒后触发
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        // 多次推送同一标识符的通知, 原先的那条通知就会被替换
+        let requestIdentifier = "identifier3Second"
+        // 通知请求
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        // 添加通知
+        UNUserNotificationCenter.current().add(request) { (err: Error?) in
+            if let e = err{
+                print("notification add error : \(e)")
+            }
+        }
+    }
+    
+    /// 添加通知代理
+    func addDelegate(){
+        UNUserNotificationCenter.current().delegate = self
+    }
+    /// 删除通知
+    func removeNotification(){
+        // 未推送的通知
+        // 根据 标识符 删除 未推送的通知
+        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["notificationId"])
+        // 删除 未推送的通知
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+        
+        // 已经推送的通知(从通知中心删除)
+        // 根据 标识符 删除 已经推送的通知
+        UNUserNotificationCenter.current().removeDeliveredNotifications(withIdentifiers: ["notificationId"])
+        // 删除 已经推送的通知
+        UNUserNotificationCenter.current().removeAllDeliveredNotifications()
+        
+    }
+    /// 打印已经推送的通知
+    func showPushNotification(){
+        UNUserNotificationCenter.current().getDeliveredNotifications { (notifications: [UNNotification]) in
+            for notification in notifications{
+                print("推送过的通知: ", notification.request.content.body)
+            }
+        }
+    }
+    func showAllNotification(){
+        UNUserNotificationCenter.current().getPendingNotificationRequests { (requests: [UNNotificationRequest]) in
+            for request in requests{
+                print("所有通知: ", request.content.body)
+            }
+        }
+    }
+    /// 在 固定位置(经纬度) 显示通知
+    func addLocalNotificationAtLocation(){
+        // 内容
+        let content = UNMutableNotificationContent()
+        content.title = "这是标题"
+        content.subtitle = "固定位置(经纬度) 显示通知 subtitle"
+        content.body = "固定位置(经纬度) 显示通知 body"
+        content.badge = 4
+        
+        // 位置
+        let coordinate = CLLocationCoordinate2D(latitude: 39, longitude: 116)
+        let region = CLCircularRegion(center: coordinate, radius: 500, identifier: "center")
+        region.notifyOnExit = false // 离开不触发
+        region.notifyOnEntry = true // 进入范围触发
+        let trigger = UNLocationNotificationTrigger(region: region, repeats: true)
+        
+        // 通知请求
+        let requestIdentifier = "identifierLocation"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        // 添加通知
+        UNUserNotificationCenter.current().add(request) { (err: Error?) in
+            if let e = err{
+                print("notification add error : \(e)")
+            }
+        }
+    }
     /// 在固定时间显示通知(闹钟)
     func addLocalNotificationAtTime(){
         // 内容
@@ -103,17 +288,18 @@ extension HomeViewController{
         
         // 指定日期
         var components = DateComponents()
-//        components.year = 2018
-//        components.month = 3
-//        components.day = 21
-        //components.weekday = 4 // 周三
-//        components.hour = 15
-        components.second = 10
+        components.year = 2018
+        components.month = 3
+        components.day = 21
+        components.weekday = 4 // 周三
+        components.hour = 17
+        components.minute = 12
+        components.second = 0
         
         // 触发器
         let trigger = UNCalendarNotificationTrigger(dateMatching: components, repeats: true)
         // 通知请求
-        let requestIdentifier = "identifier"
+        let requestIdentifier = "identifierTime"
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
         
         // 添加通知
@@ -131,11 +317,14 @@ extension HomeViewController{
         content.subtitle = "5秒后显示通知 subtitle"
         content.body = "5秒后显示通知 body"
         content.badge = 4
+        content.userInfo = ["kkk":"vvv", "haha": 123]
         
         // 触发器, 5秒后触发
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+        
+        // 多次推送同一标识符的通知, 原先的那条通知就会被替换
+        let requestIdentifier = "identifier5Second"
         // 通知请求
-        let requestIdentifier = "identifier"
         let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
         
         // 添加通知
@@ -257,3 +446,5 @@ extension HomeViewController{
         }
     }
 }
+
+
