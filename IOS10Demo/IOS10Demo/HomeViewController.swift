@@ -27,7 +27,9 @@ class HomeViewController: UIViewController {
             
             "添加通知代理",
             "点击后,3秒显示有交互的通知,基于代理",
-            "注册category,基于代理"
+            "注册category,基于代理",
+            
+            "点击后,3秒显示有图片的",
             
         ]
         return arr
@@ -124,8 +126,10 @@ extension HomeViewController: UITableViewDelegate{
             self.addLocalNotificationAtAction()
         case 10:
             // 注册 category
-            registerNotificationCategory()
-            
+            self.registerNotificationCategory()
+        case 11:
+            // 图片的通知10
+            self.addLocalNotificationAtResource()
         default:
             break
         }
@@ -139,6 +143,15 @@ extension HomeViewController: UNUserNotificationCenterDelegate{
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
         print("willPresent \(notification.request.content.body)")
+        
+        if let attachment = notification.request.content.attachments.first{
+            if attachment.url.startAccessingSecurityScopedResource(){
+                let img = UIImage(contentsOfFile: attachment.url.path)
+                print(img)
+                attachment.url.stopAccessingSecurityScopedResource()
+            }
+        }
+        
         //在应用内展示通知
         completionHandler([UNNotificationPresentationOptions.alert, .sound])
     }
@@ -177,6 +190,34 @@ extension HomeViewController: UNUserNotificationCenterDelegate{
 
 extension HomeViewController{
     // MARK: UNUserNotification 自定义通知
+    
+    /// 带图片的通知
+    func addLocalNotificationAtResource(){
+        // 内容
+        let content = UNMutableNotificationContent()
+        content.title = "这是标题"
+        content.body = "3秒后显示带图片的通知 body"
+        // 显示带图片的通知
+        if let imgUrl = Bundle.main.url(forResource: "notificeImg", withExtension: "png"),
+            let attachment = try? UNNotificationAttachment(identifier: "imgAttachmentid", url: imgUrl, options: nil){
+            content.attachments = [attachment]
+        }
+        
+        // 触发器, 3秒后触发
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        // 多次推送同一标识符的通知, 原先的那条通知就会被替换
+        let requestIdentifier = "identifier3SecondPic"
+        // 通知请求
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        // 添加通知
+        UNUserNotificationCenter.current().add(request) { (err: Error?) in
+            if let e = err{
+                print("notification add error : \(e)")
+            }
+        }
+    }
     
     /// 注册 category
     func registerNotificationCategory(){

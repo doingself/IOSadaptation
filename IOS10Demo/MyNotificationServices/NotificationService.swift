@@ -8,6 +8,7 @@
 
 import UserNotifications
 
+/// Service Extension 目前只对远程推送的通知有效。可以让我们有机会在收到远程推送通知后，展示之前对通知内容进行修改。
 class NotificationService: UNNotificationServiceExtension {
 
     var contentHandler: ((UNNotificationContent) -> Void)?
@@ -25,6 +26,22 @@ class NotificationService: UNNotificationServiceExtension {
             // Modify the notification content here...
             bestAttemptContent.title = "\(bestAttemptContent.title) [只针对远程通知,对通知标题做了修改]"
             
+            // 下载远程通知的图片, 并显示
+            if let imgUrlStr = bestAttemptContent.userInfo["img"] as? String,
+                let imgUrl = URL(string: imgUrlStr){
+                // 下载 img
+                self.downloadImg(url: imgUrl, handler: { (url: URL?) in
+                    if let url = url {
+                        do{
+                            // attachment
+                            let attachment = try UNNotificationAttachment(identifier: "origin", url: url, options: nil)
+                            bestAttemptContent.attachments = [attachment]
+                        }catch{
+                            print(error)
+                        }
+                    }
+                })
+            }
             contentHandler(bestAttemptContent)
         }
     }
@@ -44,4 +61,22 @@ class NotificationService: UNNotificationServiceExtension {
         }
     }
 
+    private func downloadImg(url: URL, handler: @escaping (_ localUrl: URL?) -> Void){
+        let task = URLSession.shared.dataTask(with: url) { (data: Data?, response: URLResponse?, err: Error?) in
+            var localUrl: URL?
+            if let data = data{
+                // 文件地址
+                let timeInterval = Date().timeIntervalSince1970
+                let timeStamp = Int(timeInterval)
+                let ext = (url.absoluteString as NSString).pathExtension
+                let tempUrl = FileManager.default.temporaryDirectory
+                localUrl = tempUrl.appendingPathComponent("\(timeStamp)").appendingPathExtension(ext)
+                // 保存文件
+                try? data.write(to: localUrl!)
+            }
+            handler(localUrl)
+        }
+        // 执行下载任务
+        task.resume()
+    }
 }
