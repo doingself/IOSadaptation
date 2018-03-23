@@ -29,7 +29,9 @@ class HomeViewController: UIViewController {
             "点击后,3秒显示有交互的通知,基于代理",
             "注册category,基于代理",
             
-            "点击后,3秒显示有图片的",
+            "点击后,3秒显示有图片的通知",
+            "点击后,3秒显示自定义布局的通知",
+            "点击后,3秒显示自定义布局的交互通知, 基于 category delegate",
             
         ]
         return arr
@@ -128,8 +130,14 @@ extension HomeViewController: UITableViewDelegate{
             // 注册 category
             self.registerNotificationCategory()
         case 11:
-            // 图片的通知10
+            // 图片的通知
             self.addLocalNotificationAtResource()
+        case 12:
+            // 自定义布局通知
+            self.addLocalNotificationAtLayout()
+        case 13:
+            // 自定义布局 交互通知
+            self.addLocalNotificationAtLayoutAction()
         default:
             break
         }
@@ -190,6 +198,73 @@ extension HomeViewController: UNUserNotificationCenterDelegate{
 
 extension HomeViewController{
     // MARK: UNUserNotification 自定义通知
+    
+    /// 自定义布局 的 action 通知
+    func addLocalNotificationAtLayoutAction(){
+        // 内容
+        let content = UNMutableNotificationContent()
+        content.body = "3秒后显示自定义布局的 action通知 body"
+        
+        // 显示带图片的通知
+        let imgnames = ["notificeImg", "notificeImg", "notificeImg"]
+        // 仅仅为了使用 flatMap 进行类型转换, 且没有可选值
+        let attachments = imgnames.flatMap { (name) -> UNNotificationAttachment? in
+            var att: UNNotificationAttachment?
+            if let imgUrl = Bundle.main.url(forResource: "\(name)", withExtension: "png"),
+                let attachment = try? UNNotificationAttachment(identifier: "imgAttachmentid", url: imgUrl, options: nil){
+                 att = attachment
+            }
+            return att
+        }
+        content.attachments = attachments
+    
+        content.userInfo = [
+            "kkk":[
+                "111111111111111",
+                "222222222222222",
+                "333333333333333",
+            ]
+        ]
+        
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        let requestIdentifier = "identifier3SecondLayoutAction"
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        UNUserNotificationCenter.current().add(request) { (err: Error?) in
+            if let e = err{
+                print(e)
+            }
+        }
+    }
+    
+    /// 自定义布局通知
+    func addLocalNotificationAtLayout(){
+        // 内容
+        let content = UNMutableNotificationContent()
+        content.title = "这是标题"
+        content.body = "3秒后显示自定义布局的通知 body"
+        
+        // 通知的 categoryIdentifier 设置成 content extension 的 category 标识符
+        // 在 NotificationContent 的 plist 控制通知详细视图的尺寸，以及是否显示原始的通知。
+        // 要特别注意的是 UNNotificationExtensionCategory 这个 key 值，它指定这个通知样式所对应的 category 标识符。
+        // 系统在接收到通知后会通过 category 标识符先查找有没有能够处理这类通知的 content extension，如果存在，那么就交给这个 extension 来进行处理。
+        // 默认生成的 category 标识符是 myNotificationCategory
+        content.categoryIdentifier = "myNotificationCategory"
+        
+        // 触发器, 3秒后触发
+        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 3, repeats: false)
+        
+        // 多次推送同一标识符的通知, 原先的那条通知就会被替换
+        let requestIdentifier = "identifier3SecondLayout"
+        // 通知请求
+        let request = UNNotificationRequest(identifier: requestIdentifier, content: content, trigger: trigger)
+        
+        // 添加通知
+        UNUserNotificationCenter.current().add(request) { (err: Error?) in
+            if let e = err{
+                print("notification add error : \(e)")
+            }
+        }
+    }
     
     /// 带图片的通知
     func addLocalNotificationAtResource(){

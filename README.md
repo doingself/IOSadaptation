@@ -28,9 +28,12 @@
 + UserNotifications 简单使用(无法测试远程通知)
     + 权限申请
     + 添加本地通知(添加代理 / 注册category action交互)
-    + Service Extension 目前只对远程推送的通知有效。可以让我们有机会在收到远程推送通知后，展示之前对通知内容进行修改。
+    + 本地通知添加图片/音频等
+    + Service Extension 目前只对远程推送的通知有效。可以让我们有机会在收到远程推送通知后，展示之前对通知内容进行修改。(修改信息, 添加图片/视频等)
         点击 `File` -> `New` -> `Target...` -> `NotificationService` 创建一个 NotificationService(只针对远程通知)
-    + 本地通知添加图片等
+    + Service Extension 目前只对远程推送的通知有效。可以用来自定义通知的详细页面视图
+        点击 `File` -> `New` -> `Target...` -> `NotificationContent` 创建一个 NotificationService(只针对远程通知)
+
 
 
 # IOS 新特性
