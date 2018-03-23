@@ -25,9 +25,13 @@
 
 + 权限配置
 + 屏幕旋转后,页面自适应
-+ UserNotifications 简单使用
++ UserNotifications 简单使用(无法测试远程通知)
     + 权限申请
-    + 添加本地通知
+    + 添加本地通知(添加代理 / 注册category action交互)
+    + Service Extension 目前只对远程推送的通知有效。可以让我们有机会在收到远程推送通知后，展示之前对通知内容进行修改。
+        点击 `File` -> `New` -> `Target...` -> `NotificationService` 创建一个 NotificationService(只针对远程通知)
+    + 本地通知添加图片等
+
 
 # IOS 新特性
 

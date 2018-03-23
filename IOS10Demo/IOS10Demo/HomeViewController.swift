@@ -37,7 +37,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.navigationItem.title = "home"
+        self.navigationItem.title = "UNUserNotification(本地/远程通知)"
         self.view.backgroundColor = UIColor.white
         
         tabView = UITableView(frame: self.view.bounds, style: UITableViewStyle.grouped)
