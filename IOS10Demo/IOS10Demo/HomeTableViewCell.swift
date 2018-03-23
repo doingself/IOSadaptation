@@ -19,6 +19,9 @@ class HomeTableViewCell: UITableViewCell {
         lab1.numberOfLines = 0
         lab2.numberOfLines = 0
         
+        lab1.textColor = UIColor.black
+        lab2.textColor = UIColor.lightGray
+        
 //        lab1.layer.borderWidth = 1
 //        lab2.layer.borderWidth = 2
     }

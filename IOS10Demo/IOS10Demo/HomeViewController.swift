@@ -86,6 +86,11 @@ extension HomeViewController: UITableViewDelegate{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
+        let isTest = false
+        if isTest && indexPath.row > 0 {
+            return
+        }
+        
         switch indexPath.row {
         case 0:
             // 申请
@@ -117,7 +122,7 @@ extension HomeViewController: UITableViewDelegate{
         case 9:
             // 显示交互的通知(action)
             self.addLocalNotificationAtAction()
-        case 11:
+        case 10:
             // 注册 category
             registerNotificationCategory()
             
@@ -149,7 +154,7 @@ extension HomeViewController: UNUserNotificationCenterDelegate{
         if categoryIdentifier == "myCategoryIdentifier"{
             let actionType = response.actionIdentifier
             let msg: String
-            if actionType == ""{
+            if actionType == "txtInputNotifAct" {
                 msg = "输入了 === " + (response as! UNTextInputNotificationResponse).userText
             }else{
                 msg = "点击了 === " + actionType
@@ -175,29 +180,33 @@ extension HomeViewController{
     
     /// 注册 category
     func registerNotificationCategory(){
-        
-        // 输入框 action
-        let inputAction = UNTextInputNotificationAction(identifier: "myinput", title: "文本框", options: UNNotificationActionOptions.foreground, textInputButtonTitle: "btn", textInputPlaceholder: "placeholder..")
-        
-        // 按钮 action
-        let btnAction = UNNotificationAction(identifier: "mybtn", title: "按钮", options: UNNotificationActionOptions.destructive)
-        
-        // category
-        let myCategory: UNNotificationCategory = UNNotificationCategory(identifier: "mydefine", actions: [inputAction, btnAction], intentIdentifiers: [], options: UNNotificationCategoryOptions.customDismissAction)
-        
+        let myCategory: UNNotificationCategory = {
+            // 输入框 action
+            let inputAction = UNTextInputNotificationAction(identifier: "txtInputNotifAct", title: "文本框", options: UNNotificationActionOptions.foreground, textInputButtonTitle: "btn", textInputPlaceholder: "placeholder..")
+            
+            // 按钮 action
+            let btnAction = UNNotificationAction(identifier: "foregroundBtn", title: "foreground按钮", options: UNNotificationActionOptions.foreground)
+            
+            let cancelBtnAction = UNNotificationAction(identifier: "destructiveBtn", title: "destructive按钮", options: UNNotificationActionOptions.destructive)
+            
+            // category
+            let myCategory: UNNotificationCategory = UNNotificationCategory(
+                identifier: "myCategoryIdentifier",
+                actions: [inputAction, btnAction, cancelBtnAction],
+                intentIdentifiers: [],
+                options: UNNotificationCategoryOptions.customDismissAction
+            )
+            return myCategory
+        }()
         // 添加到 center
         UNUserNotificationCenter.current().setNotificationCategories([myCategory])
     }
-    
     /// 添加有交互的通知
     func addLocalNotificationAtAction(){
         // 内容
         let content = UNMutableNotificationContent()
         content.title = "这是标题"
-        content.subtitle = "3秒后显示交互通知 subtitle"
         content.body = "3秒后显示交互通知 body"
-        content.badge = 4
-        content.userInfo = ["kkk":"vvv", "haha": 123]
         content.categoryIdentifier = "myCategoryIdentifier"
         
         // 触发器, 3秒后触发
