@@ -21,6 +21,8 @@
 
 ## IOS10 Demo
 
+![image](https://github.com/doingself/IOSadaptation/blob/master/images/ios10-image0.gif)
+
 该 Demo 基于 IOS10 + swift4 + Xcode9 完成了以下功能:
 
 + 权限配置
