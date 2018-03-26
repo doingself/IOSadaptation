@@ -16,6 +16,7 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     @IBOutlet weak var imgView: UIImageView!
     
     private var items: [String] = []
+    private var index = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,16 +27,44 @@ class NotificationViewController: UIViewController, UNNotificationContentExtensi
     // 收到通知
     func didReceive(_ notification: UNNotification) {
         self.label?.text = notification.request.content.body
+        self.imgView.image = UIImage(named: "notificeImg")
         
         let content = notification.request.content
-        
+        if let kkk = content.userInfo["mykey"] as? [String] {
+            items = kkk
+        }
     }
-    // 点击了 action 按钮
+    private func showIndex(i: Int){
+        index = i
+        let item = items[index]
+        self.label?.text = item
+        /*
+        //更新图片
+        if item.url.startAccessingSecurityScopedResource() {
+            self.imageView.image = UIImage(contentsOfFile: item.url.path)
+            item.url.stopAccessingSecurityScopedResource()
+        }
+        */
+    }
+    // 点击了 action 按钮(注册的 category)
     func didReceive(_ response: UNNotificationResponse, completionHandler completion: @escaping (UNNotificationContentExtensionResponseOption) -> Void) {
         
         print("\(#function) response.actionid = \(response.actionIdentifier)")
         
-        completion(UNNotificationContentExtensionResponseOption.doNotDismiss)
+        if response.actionIdentifier == "change"{
+            let nextIndex = (index + 1) % items.count
+            showIndex(i: nextIndex)
+            
+            // 保持通知继续显示
+            completion(.doNotDismiss)
+            
+        }else if response.actionIdentifier == "foregroundBtn"{
+            // diss 并 打开
+            completion(UNNotificationContentExtensionResponseOption.dismissAndForwardAction)
+            
+        }else if response.actionIdentifier == "destructiveBtn"{
+            // 关闭通知
+            completion(.dismiss)
+        }
     }
-
 }

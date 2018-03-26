@@ -16,18 +16,20 @@ class HomeViewController: UIViewController {
     private let cellId = "cellIdentifier"
     private lazy var datas: [String] = {
         let arr = [
-            "获取通知权限,并申请",
+            "获取通知权限,没有权限则申请",
             "打印通知权限",
+            
             "点击后,5秒显示通知",
             "点击后,在固定时间显示通知",
             "点击后,在固定位置(经纬度)显示通知",
+            
             "打印所有通知(远程+本地)",
             "打印已经推送的通知",
-            "删除通知",
+            "根据标识符/all 删除 未推送/通知中心 的 通知",
             
-            "添加通知代理",
-            "点击后,3秒显示有交互的通知,基于代理",
-            "注册category,基于代理",
+            "添加通知代理(应用内显示通知,action事件)",
+            "点击后,3秒显示有交互的通知, 基于 delegate(action事件) 和 category(action 按钮)",
+            "注册category(action 按钮)",
             
             "点击后,3秒显示有图片的通知",
             "点击后,3秒显示自定义布局的通知",
@@ -97,7 +99,7 @@ extension HomeViewController: UITableViewDelegate{
         
         switch indexPath.row {
         case 0:
-            // 申请
+            //"获取通知权限,没有权限则申请",
             self.getNotificationSet()
         case 1:
             // 打印通知权限
@@ -204,6 +206,8 @@ extension HomeViewController{
         // 内容
         let content = UNMutableNotificationContent()
         content.body = "3秒后显示自定义布局的 action通知 body"
+        // 自定义页面 NotificationContent 的 plist 对应的 category 标识符。
+        content.categoryIdentifier = "myNotificationCategory"
         
         // 显示带图片的通知
         let imgnames = ["notificeImg", "notificeImg", "notificeImg"]
@@ -219,7 +223,7 @@ extension HomeViewController{
         content.attachments = attachments
     
         content.userInfo = [
-            "kkk":[
+            "mykey":[
                 "111111111111111",
                 "222222222222222",
                 "333333333333333",
@@ -294,8 +298,9 @@ extension HomeViewController{
         }
     }
     
-    /// 注册 category
+    /// 注册 category, 交互的 action 按钮, 基于代理
     func registerNotificationCategory(){
+        // 给普通通知添加 action 按钮
         let myCategory: UNNotificationCategory = {
             // 输入框 action
             let inputAction = UNTextInputNotificationAction(identifier: "txtInputNotifAct", title: "文本框", options: UNNotificationActionOptions.foreground, textInputButtonTitle: "btn", textInputPlaceholder: "placeholder..")
@@ -314,10 +319,33 @@ extension HomeViewController{
             )
             return myCategory
         }()
+        
+        
+        // 自定义通知页面 action 按钮
+        let contentCategory: UNNotificationCategory = {
+            
+            // 按钮 action
+            let change = UNNotificationAction(identifier: "change", title: "change按钮", options: [])
+            let btnAction = UNNotificationAction(identifier: "foregroundBtn", title: "foreground按钮", options: UNNotificationActionOptions.foreground)
+            let cancelBtnAction = UNNotificationAction(identifier: "destructiveBtn", title: "destructive按钮", options: UNNotificationActionOptions.destructive)
+            
+            // category
+            // 自定义页面 NotificationContent 的 plist 对应的 category 标识符。content.categoryIdentifier = "myNotificationCategory"
+            let myCategory: UNNotificationCategory = UNNotificationCategory(
+                identifier: "myNotificationCategory",
+                actions: [change, btnAction, cancelBtnAction],
+                intentIdentifiers: [],
+                options: UNNotificationCategoryOptions.customDismissAction
+            )
+            return myCategory
+        }()
+        
+        
+        
         // 添加到 center
-        UNUserNotificationCenter.current().setNotificationCategories([myCategory])
+        UNUserNotificationCenter.current().setNotificationCategories([myCategory, contentCategory])
     }
-    /// 添加有交互的通知
+    /// 添加有交互的通知 基于 delegate(action事件) 和 category(action 按钮)
     func addLocalNotificationAtAction(){
         // 内容
         let content = UNMutableNotificationContent()
@@ -459,7 +487,7 @@ extension HomeViewController{
             }
         }
     }
-    /// 查看权限,并申请
+    /// 获取通知权限,没有权限则申请
     func getNotificationSet(){
         UNUserNotificationCenter.current().getNotificationSettings { (sets: UNNotificationSettings) in
             // 查看当前权限
