@@ -37,6 +37,21 @@
         点击 `File` -> `New` -> `Target...` -> `NotificationContent` 创建一个 NotificationService(只针对远程通知)
 
 
+## SceneDelegateDemo
+
+- Xcode 12
+- Swift 5
+- iOS 12.0 ~ iOS 14.0
+
+
+- iOS13之前，appDelegate 的职责全权处理 App生命周期 和 UI生命周期；
+- iOS13之后，appDelegate 的职责是处理 App生命周期 和 Scene Session 生命周期; 所有UI生命周期交给 SceneDelegate处理
+
+
+Xcode 11 建新工程默认会创建通过 UIScene 管理多个 UIWindow 的应用，工程中除了 AppDelegate 外还会有一个 SceneDelegate，这是为了实现iPadOS支持多窗口的结果。
+AppDelegate不再有window属性，window属性被定义在了SceneDelegate中，AppDelegate中有新增的关于scene的代理方法，SceneDelegate中也有相应的代理方法。
+
+
 
 # IOS 新特性
 
