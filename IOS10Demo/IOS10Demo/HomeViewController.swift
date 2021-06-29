@@ -516,6 +516,10 @@ extension HomeViewController{
                     alertController.addAction(setAction)
                     self.present(alertController, animated: true, completion: nil)
                 })
+            case .provisional:
+                return
+            case .ephemeral:
+                return
             }
         }
     }
@@ -525,12 +529,16 @@ extension HomeViewController{
             settings in
             var message = "是否允许通知："
             switch settings.authorizationStatus {
-            case .authorized:
+            case UNAuthorizationStatus.authorized:
                 message.append("允许")
             case .notDetermined:
                 message.append("未确定")
             case .denied:
                 message.append("不允许")
+            case .provisional:
+                message.append("provisional")
+            case .ephemeral:
+                message.append("ephemeral")
             }
             
             message.append("\n\t声音：")
