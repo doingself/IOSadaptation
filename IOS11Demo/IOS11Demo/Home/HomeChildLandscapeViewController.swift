@@ -13,6 +13,16 @@ class HomeChildLandscapeViewController: UIViewController {
     private var landscapeBtn: UIButton!
     private var portraitBtn: UIButton!
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        
+        self.modalPresentationStyle = UIModalPresentationStyle.fullScreen
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,7 +32,7 @@ class HomeChildLandscapeViewController: UIViewController {
         
         // MARK: IOS11 new features
         //self.navigationController?.navigationBar.prefersLargeTitles = true
-        self.navigationItem.largeTitleDisplayMode = .automatic // prefersLargeTitles=true才生效
+        self.navigationItem.largeTitleDisplayMode = .never //always, prefersLargeTitles=true才生效
         
         landscapeBtn = UIButton(type: .custom)
         landscapeBtn.frame = CGRect(x: 100, y: 100, width: 100, height: 40)
